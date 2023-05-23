@@ -51,8 +51,10 @@ class General extends Component {
             degree: educationJson.degree,
             id: uniqid()
         };
+        let removeDefault = this.state.education.filter(entry => {return entry.school !== 'School'});
+        if (removeDefault.length === 0) removeDefault = [];
         this.setState({
-            education: this.state.education.concat(eduEntry)
+            education: removeDefault.concat(eduEntry)
         });
         educationForm.reset();
     }
