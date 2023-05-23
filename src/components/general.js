@@ -11,14 +11,14 @@ class General extends Component {
 
         this.state = {
             personal: {
-                name: '',
-                email: '',
-                phone: '',
-                address: '',
-                website: ''
+                name: 'Name',
+                email: 'email@email.com',
+                phone: '555-555-5555',
+                address: '123 Street, City, ST, 12345',
+                website: 'www.website.com'
             },
-            education: [{school: 'test', start: '2000', end: '2003', degree: 'test', id: uniqid()}],
-            experience: [{company: 'test', id: uniqid()}]
+            education: [{school: 'School', start: 'Start', end: 'End', degree: 'Degree', id: uniqid()}],
+            experience: [{company: 'Company', position: 'Position', tasks: 'Tasks', expstart: 'Start', expend: 'End', id: uniqid()}]
         }
     }
 
@@ -36,6 +36,7 @@ class General extends Component {
                 website: personalJson.website                
             }
         });
+        personalForm.reset();
     }
 
     onSubmitEducation = (e) => {
@@ -53,7 +54,7 @@ class General extends Component {
         this.setState({
             education: this.state.education.concat(eduEntry)
         });
-        console.log(this.state);
+        educationForm.reset();
     }
 
     onSubmitExperience = (e) => {
@@ -72,7 +73,7 @@ class General extends Component {
         this.setState({
             experience: this.state.experience.concat(expEntry)
         });
-        console.log(this.state);
+        experienceForm.reset();
     }
 
     render() {
@@ -80,7 +81,7 @@ class General extends Component {
         return (
             <div className='wrapper'>
                 <div className='form-section'>
-                    <div className="personal-info">
+                    <div className="personal-form">
                         <div>General Info</div>
                         <div className="personal-form">
                             <form onSubmit={this.onSubmitGeneral}

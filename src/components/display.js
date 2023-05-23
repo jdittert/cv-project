@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import '../styles/Display.css'
 
 class Display extends Component {
     
@@ -8,23 +9,28 @@ class Display extends Component {
         const {experience} = this.props;
 
         return (
-            <div>              
+            <div className='resume'>              
                 <div>
-                    <div>PERSONAL</div>
-                    <div>{personal.name}</div>
-                    <div>{personal.email}</div>
-                    <div>{personal.phone}</div>
-                    <div>{personal.address}</div>
-                    <div>{personal.website}</div>
+                    <div className='resume-header'>
+                        {personal.name}
+                    </div>
+                    <div className='personal-info'>
+                        <div>{personal.email}</div>
+                        <div>{personal.phone}</div>
+                        <div>{personal.address}</div>
+                        <div>{personal.website}</div>
+                    </div>
                 </div>
                 <div>
-                    <div>EDUCATION</div>
+                    <div className='section-header'>EDUCATION</div>
                     <div>
                         <ul>
                            {education.map((entry) => {
                                 return <li key={entry.id}>
-                                    <div>{entry.school}</div>
-                                    <div>{entry.start} - {entry.end}</div>
+                                    <div className='top-level'>
+                                        <div className='title'>{entry.school}</div>
+                                        <div className='dates'>{entry.start} - {entry.end}</div>
+                                    </div>
                                     <div>{entry.degree}</div>
                                     </li>
                             })
@@ -33,15 +39,18 @@ class Display extends Component {
                     </div>
                 </div>
                 <div>
-                    <div>EXPERIENCE</div>
+                    <div className='section-header'>EXPERIENCE</div>
                     <div>
                         <ul>
                             {experience.map((entry) => {
                                 return <li key={entry.id}>
-                                    <div>{entry.company}</div>
+                                    <div className='top-level'>
+                                        <div className='title'>{entry.company}</div>
+                                        <div className='dates'>{entry.expstart} - {entry.expend}</div>
+                                    </div>
                                     <div>{entry.position}</div>
                                     <div>{entry.tasks}</div>
-                                    <div>{entry.expstart} - {entry.expend}</div>
+                                    
                                     </li>
                             })}
                         </ul>

@@ -1,9 +1,11 @@
 body {
     padding: 0;
     margin: 0;
+    font-family: 'Noto Sans';
 }
 
 .wrapper {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 1rem;
 }

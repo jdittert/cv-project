@@ -1,0 +1,41 @@
+.resume {
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.resume-header {
+    font-size: 2rem;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    margin-bottom: .5rem;
+}
+
+.personal-info {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.section-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    margin-bottom: .5rem;
+}
+
+.top-level {
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.dates {
+    font-style: italic;
+}
