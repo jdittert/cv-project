@@ -1,19 +1,22 @@
 .resume {
-    border: 2px solid black;
     border-radius: 8px;
     padding: 1rem;
-    margin: 1rem;
+    border-top: 8px solid var(--icon-color);
+    background-color: var(--header-background);
+    color: black;
 }
 
 .resume-header {
     font-size: 2rem;
     font-weight: bold;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--dark-accent-color);
     margin-bottom: .5rem;
+    color: var(--dark-accent-color)
 }
 
 .personal-info {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     justify-content: space-between;
     padding: 0;
@@ -23,7 +26,7 @@
 .section-header {
     font-size: 1.5rem;
     font-weight: bold;
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--dark-accent-color);
     margin-bottom: .5rem;
 }
 

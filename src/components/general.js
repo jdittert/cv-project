@@ -4,7 +4,6 @@ import '../styles/FormSide.css'
 import Display from './display';
 import uniqid from 'uniqid';
 
-
 class General extends Component {
     constructor() {
         super(); 
@@ -18,7 +17,7 @@ class General extends Component {
                 website: 'www.website.com'
             },
             education: [{school: 'School', start: 'Start', end: 'End', degree: 'Degree', id: uniqid()}],
-            experience: [{company: 'Company', position: 'Position', tasks: 'Tasks', expstart: 'Start', expend: 'End', id: uniqid()}]
+            experience: [{company: 'Company', position: 'Position', tasks: 'Tasks', start: 'Start', end: 'End', id: uniqid()}]
         }
     }
 
@@ -68,12 +67,14 @@ class General extends Component {
             company: experienceJson.company,
             position: experienceJson.position,
             tasks: experienceJson.tasks,
-            start: experienceJson.expstart,
-            end: experienceJson.expend,            
+            start: experienceJson.start,
+            end: experienceJson.end,            
             id: uniqid()
         };
+        let removeDefault = this.state.experience.filter(entry => {return entry.company !== 'Company'});
+        if (removeDefault.length === 0) removeDefault = [];
         this.setState({
-            experience: this.state.experience.concat(expEntry)
+            experience: removeDefault.concat(expEntry)
         });
         experienceForm.reset();
     }
@@ -83,49 +84,59 @@ class General extends Component {
         return (
             <div className='wrapper'>
                 <div className='form-section'>
-                    <div className="personal-form">
-                        <div>General Info</div>
-                        <div className="personal-form">
+                    <div>
+                        <div className='section-header'>General Info</div>
+                        <div className='personal-form'>
                             <form onSubmit={this.onSubmitGeneral}
                             id='personal-form'>
-                                <Input field='name' />
-                                <Input field='email' />
-                                <Input field='phone' />
-                                <Input field='address' />
-                                <Input field='website' />
-                            <div>
-                                <button type='submit'>Submit</button>
+                                <div className='form-inputs'>
+                                    <Input field='name' />
+                                    <Input field='email' />
+                                    <Input field='phone' />
+                                    <Input field='address' />
+                                    <Input field='website' />
+                                </div>
+                            <div className='submit-button'>
+                                <button type='submit'>SUBMIT</button>
                             </div>
                             </form>
                         </div>
                     </div>
                     <div className='education'>
-                        <div>Education</div>
+                        <div className='section-header'>Education</div>
                         <div className='education-form'>
                             <form onSubmit={this.onSubmitEducation}
                             id='education-form'>
-                                <Input field='school' />
-                                <Input field='start' />
-                                <Input field='end' />
-                                <Input field='degree' />
-                            <div>
-                                <button type='submit'>Submit</button>
+                                <div className='education-inputs'>
+                                    <Input field='school' />
+                                    <div className='date-inputs'>
+                                        <Input field='start' />
+                                        <Input field='end' />
+                                    </div>
+                                    <Input field='degree' />
+                                </div>
+                            <div className='submit-button'>
+                                <button type='submit'>SUBMIT</button>
                             </div>
                             </form>
                         </div>
                     </div>
                     <div className='experience'>
-                        <div>Experience</div>
+                        <div className='section-header'>Experience</div>
                         <div className='experience-form'>
                             <form onSubmit={this.onSubmitExperience}
                             id='experience-form'>
-                                <Input field='company' />
-                                <Input field='position' />
-                                <Input field='tasks' />
-                                <Input field='expstart' />
-                                <Input field='expend' />
-                            <div>
-                                <button type='submit'>Submit</button>
+                                <div className='form-inputs'>
+                                    <Input field='company' />
+                                    <Input field='position' />
+                                    <Input field='tasks' />
+                                    <div className='date-inputs'>
+                                        <Input field='start' />
+                                        <Input field='end' />
+                                    </div>
+                                </div>
+                            <div className='submit-button'>
+                                <button type='submit'>SUBMIT</button>
                             </div>
                             </form>
                         </div>
@@ -146,12 +157,13 @@ function Input (props) {
     return (
         
         <div className='input-field'>
+            <label htmlFor={field}>{fieldLabel}</label>
             <input
                 type='text'
                 id={field}
                 name={field}
             />
-            <label htmlFor={field}>{fieldLabel}</label>
+            
         </div>
     );
 }

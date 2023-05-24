@@ -46,10 +46,10 @@ class Display extends Component {
                                 return <li key={entry.id}>
                                     <div className='top-level'>
                                         <div className='title'>{entry.company}</div>
-                                        <div className='dates'>{entry.expstart} - {entry.expend}</div>
+                                        <div className='dates'>{entry.start} - {entry.end}</div>
                                     </div>
                                     <div>{entry.position}</div>
-                                    <div>{entry.tasks}</div>
+                                    <div>Tasks: {entry.tasks}</div>
                                     
                                     </li>
                             })}

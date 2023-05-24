@@ -1,11 +1,25 @@
+:root {
+    --dark-accent-color: #472183;
+    --dark-accent-color-light: #6c4d9c;
+    --dark-accent-color-dark: #391a69;
+    --header-background: #f1f6f5;
+    --light-accent-color: #82c3ec;
+    --cancel-color: #ff4242;
+    --icon-color: #4b56d2;
+    --text-color: #505050;
+    --hover-color: white;
+}
+
 body {
     padding: 0;
     margin: 0;
     font-family: 'Noto Sans';
+    background-color: var(--light-accent-color);
 }
 
 .wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: min-content 1fr;
     padding: 1rem;
+    gap: 2rem;
 }
