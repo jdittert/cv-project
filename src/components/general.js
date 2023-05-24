@@ -17,7 +17,9 @@ class General extends Component {
                 website: 'www.website.com'
             },
             education: [{school: 'School', start: 'Start', end: 'End', degree: 'Degree', id: uniqid()}],
-            experience: [{company: 'Company', position: 'Position', tasks: 'Tasks', start: 'Start', end: 'End', id: uniqid()}]
+            experience: [{company: 'Company', position: 'Position', tasks: 'Tasks', start: 'Start', end: 'End', id: uniqid()}],
+            addEducation: false,
+            addExperience: false
         }
     }
 
@@ -38,6 +40,16 @@ class General extends Component {
         personalForm.reset();
     }
 
+    addEducation = (e) => {
+        e.preventDefault();
+        this.setState({addEducation: true})
+    }
+
+    cancelEducation = (e) => {
+        e.preventDefault();
+        this.setState({addEducation: false})
+    }
+
     onSubmitEducation = (e) => {
         e.preventDefault();
         const educationForm = e.target;
@@ -53,9 +65,20 @@ class General extends Component {
         let removeDefault = this.state.education.filter(entry => {return entry.school !== 'School'});
         if (removeDefault.length === 0) removeDefault = [];
         this.setState({
-            education: removeDefault.concat(eduEntry)
+            education: removeDefault.concat(eduEntry),
+            addEducation: false
         });
         educationForm.reset();
+    }
+
+    addExperience = (e) => {
+        e.preventDefault();
+        this.setState({addExperience: true})
+    }
+
+    cancelExperience = (e) => {
+        e.preventDefault();
+        this.setState({addExperience: false})
     }
 
     onSubmitExperience = (e) => {
@@ -74,7 +97,8 @@ class General extends Component {
         let removeDefault = this.state.experience.filter(entry => {return entry.company !== 'Company'});
         if (removeDefault.length === 0) removeDefault = [];
         this.setState({
-            experience: removeDefault.concat(expEntry)
+            experience: removeDefault.concat(expEntry),
+            addExperience: false
         });
         experienceForm.reset();
     }
@@ -102,50 +126,32 @@ class General extends Component {
                             </form>
                         </div>
                     </div>
-                    <div className='education'>
+                    <div className='education'
+                    id='education-field'>
                         <div className='section-header'>Education</div>
-                        <div className='education-form'>
-                            <form onSubmit={this.onSubmitEducation}
-                            id='education-form'>
-                                <div className='education-inputs'>
-                                    <Input field='school' />
-                                    <div className='date-inputs'>
-                                        <Input field='start' />
-                                        <Input field='end' />
-                                    </div>
-                                    <Input field='degree' />
-                                </div>
-                            <div className='submit-button'>
-                                <button type='submit'>SUBMIT</button>
-                            </div>
-                            </form>
+                        <div>
+                            {this.state.addEducation ? <EducationForm onSubmit={this.onSubmitEducation} onCancel={this.cancelEducation} /> : ''}
+                        </div>
+                        <div className='submit-button'
+                        id='add-edu-button'>
+                            {this.state.addEducation ? '' : <button onClick={this.addEducation}>ADD</button>}                            
                         </div>
                     </div>
                     <div className='experience'>
                         <div className='section-header'>Experience</div>
-                        <div className='experience-form'>
-                            <form onSubmit={this.onSubmitExperience}
-                            id='experience-form'>
-                                <div className='form-inputs'>
-                                    <Input field='company' />
-                                    <Input field='position' />
-                                    <Input field='tasks' />
-                                    <div className='date-inputs'>
-                                        <Input field='start' />
-                                        <Input field='end' />
-                                    </div>
-                                </div>
-                            <div className='submit-button'>
-                                <button type='submit'>SUBMIT</button>
-                            </div>
-                            </form>
+                        <div>
+                        {this.state.addExperience ? <ExperienceForm onSubmit={this.onSubmitExperience} onCancel={this.cancelExperience} /> : ''}
+                        </div>
+                        <div className='submit-button'
+                        id='add-exp-button'>
+                            {this.state.addExperience ? '' : <button onClick={this.addExperience}>ADD</button>}                            
                         </div>
                     </div>
                 </div>
-                <div>
-                    <Display personal={this.state.personal} education={this.state.education} experience={this.state.experience} />
-                </div>
-            </div>
+                    <div>
+                        <Display personal={this.state.personal} education={this.state.education} experience={this.state.experience} />
+                    </div>
+            </div>            
         );
     }
 }
@@ -166,6 +172,57 @@ function Input (props) {
             
         </div>
     );
+}
+
+function EducationForm (props) {
+    const {onSubmit} = props;
+    const {onCancel} = props;
+    return (
+        <div className='education-form'>
+            <form onSubmit={onSubmit}
+            id='education-form'>
+                <div className='education-inputs'>
+                    <Input field='school' />
+                    <div className='date-inputs'>
+                        <Input field='start' />
+                        <Input field='end' />
+                    </div>
+                    <Input field='degree' />
+                </div>
+            <div className='submit-button'>
+                <button type='submit'>SUBMIT</button>
+                <button className='cancel'
+                onClick={onCancel}>CANCEL</button>
+            </div>
+            </form>
+        </div>
+    )
+}
+
+function ExperienceForm (props) {
+    const {onSubmit} = props;
+    const {onCancel} = props;
+    return (        
+        <div className='experience-form'>
+            <form onSubmit={onSubmit}
+            id='experience-form'>
+                <div className='form-inputs'>
+                    <Input field='company' />
+                    <Input field='position' />
+                    <Input field='tasks' />
+                    <div className='date-inputs'>
+                        <Input field='start' />
+                        <Input field='end' />
+                    </div>
+                </div>
+            <div className='submit-button'>
+                <button type='submit'>SUBMIT</button>
+                <button onClick={onCancel}
+                className='cancel'>CANCEL</button>
+            </div>
+            </form>
+        </div>
+    )
 }
 
 export default General;

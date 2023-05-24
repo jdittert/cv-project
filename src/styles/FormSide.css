@@ -42,6 +42,7 @@ button {
 .submit-button {
     display: flex;
     justify-content: flex-end;
+    gap: .5rem;
 }
 
 .education-inputs {
@@ -54,4 +55,12 @@ button {
     display: flex;
     justify-content: space-between;
     gap: 10px;
+}
+
+.cancel {
+    background-color: var(--cancel-color);
+}
+
+.hide {
+    display: none;
 }
