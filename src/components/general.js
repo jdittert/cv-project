@@ -62,13 +62,18 @@ class General extends Component {
             degree: educationJson.degree,
             id: uniqid()
         };
-        let removeDefault = this.state.education.filter(entry => {return entry.school !== 'School'});
-        if (removeDefault.length === 0) removeDefault = [];
+        const userEdu = this.educationEdits();
         this.setState({
-            education: removeDefault.concat(eduEntry),
+            education: userEdu.concat(eduEntry),
             addEducation: false
         });
         educationForm.reset();
+    }
+
+    educationEdits() {
+        let userEdu = this.state.education.filter(entry => {return entry.school !== 'School'});
+        if (userEdu.length === 0) userEdu = [];
+        return userEdu;
     }
 
     addExperience = (e) => {
@@ -103,6 +108,12 @@ class General extends Component {
         experienceForm.reset();
     }
 
+    experienceEdits() {
+        let userExp = this.state.experience.filter(entry => {return entry.company !== 'Company'});
+        if (userExp.length === 0) userExp = [];
+        return userExp;
+    }
+
     render() {
 
         return (
@@ -114,11 +125,11 @@ class General extends Component {
                             <form onSubmit={this.onSubmitGeneral}
                             id='personal-form'>
                                 <div className='form-inputs'>
-                                    <Input field='name' />
-                                    <Input field='email' />
-                                    <Input field='phone' />
-                                    <Input field='address' />
-                                    <Input field='website' />
+                                    <Input field='name' values={this.state.personal} />
+                                    <Input field='email' values={this.state.personal} />
+                                    <Input field='phone' values={this.state.personal} />
+                                    <Input field='address' values={this.state.personal} />
+                                    <Input field='website' values={this.state.personal} />
                                 </div>
                             <div className='submit-button'>
                                 <button type='submit'>SUBMIT</button>
@@ -130,6 +141,22 @@ class General extends Component {
                     id='education-field'>
                         <div className='section-header'>Education</div>
                         <div>
+                            {this.educationEdits().length === 0 ? '' : 
+                            <>
+                            {this.state.education.map((entry) => {
+                                return <div className='edit-list'>
+                                    <div>
+                                    {entry.school}
+                                    </div>
+                                    <div>
+                                    <button>EDIT</button>
+                                    </div>
+                                </div>
+                            })}
+                            </>
+                        }
+                        </div>
+                        <div>
                             {this.state.addEducation ? <EducationForm onSubmit={this.onSubmitEducation} onCancel={this.cancelEducation} /> : ''}
                         </div>
                         <div className='submit-button'
@@ -139,6 +166,22 @@ class General extends Component {
                     </div>
                     <div className='experience'>
                         <div className='section-header'>Experience</div>
+                        <div>
+                            {this.experienceEdits().length === 0 ? '' : 
+                            <>
+                            {this.state.experience.map((entry) => {
+                                return <div className='edit-list'>
+                                    <div>
+                                    {entry.company}
+                                    </div>
+                                    <div>
+                                    <button>EDIT</button>
+                                    </div>
+                                </div>
+                            })}
+                            </>
+                        }
+                        </div>
                         <div>
                         {this.state.addExperience ? <ExperienceForm onSubmit={this.onSubmitExperience} onCancel={this.cancelExperience} /> : ''}
                         </div>
@@ -158,8 +201,8 @@ class General extends Component {
 
 function Input (props) {
     const {field} = props;
-    const fieldLabel = field.toUpperCase();
-     
+    const fieldLabel = field.toUpperCase();    
+
     return (
         
         <div className='input-field'>
@@ -168,8 +211,10 @@ function Input (props) {
                 type='text'
                 id={field}
                 name={field}
-            />
-            
+                defaultValue={
+                  props.values ? props.values[props.field] : ''
+                }
+            />            
         </div>
     );
 }

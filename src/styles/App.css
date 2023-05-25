@@ -19,7 +19,7 @@ body {
 
 .wrapper {
     display: grid;
-    grid-template-columns: min-content 1fr;
+    grid-template-columns: 40% 1fr;
     padding: 1rem;
     gap: 2rem;
 }
