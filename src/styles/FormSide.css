@@ -8,6 +8,11 @@
     background-color: var(--header-background);
 }
 
+.education form {
+    border-bottom: 1px solid var(--dark-accent-color);
+    padding-bottom: 1rem;
+}
+
 .input-field {
     display: flex;
     flex-direction: column;
@@ -61,8 +66,12 @@ button {
 .edit-list {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 10px;
     margin-bottom: 1rem;
+    border-bottom: 1px solid var(--dark-accent-color);
+    padding-bottom: .5rem;
+    padding-top: .5rem;
 }
 
 .cancel {

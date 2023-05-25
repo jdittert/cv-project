@@ -16,8 +16,8 @@ class General extends Component {
                 address: '123 Street, City, ST, 12345',
                 website: 'www.website.com'
             },
-            education: [{school: 'School', start: 'Start', end: 'End', degree: 'Degree', id: uniqid()}],
-            experience: [{company: 'Company', position: 'Position', tasks: 'Tasks', start: 'Start', end: 'End', id: uniqid()}],
+            education: [{school: 'School', start: 'Start', end: 'End', degree: 'Degree', id: uniqid(), edit: false}],
+            experience: [{company: 'Company', position: 'Position', tasks: 'Tasks', start: 'Start', end: 'End', id: uniqid(), edit: false}],
             addEducation: false,
             addExperience: false
         }
@@ -60,6 +60,7 @@ class General extends Component {
             start: educationJson.start,
             end: educationJson.end,
             degree: educationJson.degree,
+            edit: false,
             id: uniqid()
         };
         const userEdu = this.educationEdits();
@@ -74,6 +75,20 @@ class General extends Component {
         let userEdu = this.state.education.filter(entry => {return entry.school !== 'School'});
         if (userEdu.length === 0) userEdu = [];
         return userEdu;
+    }
+
+    editSchool = (e) => {
+        e.preventDefault();
+        const {school} = e.target.dataset; 
+        console.log(this.state.education);
+        let schools = [...this.state.education];
+        let edited = {...schools[school]};
+        edited.edit = true;
+        schools[school] = edited;
+        this.setState({
+            education: schools
+        });
+        console.log(this.state.education);
     }
 
     addExperience = (e) => {
@@ -144,17 +159,25 @@ class General extends Component {
                             {this.educationEdits().length === 0 ? '' : 
                             <>
                             {this.state.education.map((entry) => {
-                                return <div className='edit-list'>
-                                    <div>
+                                return <div>
+                                    {entry.edit === true ? <EducationForm onCancel={this.cancelEducation} onSubmit={this.onSubmitEducation}
+                                    values={entry} /> :
+
+                                <div className='edit-list'>
+                                    <div key={entry.id}>
                                     {entry.school}
                                     </div>
                                     <div>
-                                    <button>EDIT</button>
+                                    <button
+                                    data-school={this.state.education.indexOf(entry)}
+                                    onClick={this.editSchool}>EDIT</button>
                                     </div>
+                                </div>}
                                 </div>
-                            })}
-                            </>
-                        }
+                                })}
+                            
+                                </>                            
+                            }
                         </div>
                         <div>
                             {this.state.addEducation ? <EducationForm onSubmit={this.onSubmitEducation} onCancel={this.cancelEducation} /> : ''}
@@ -175,7 +198,8 @@ class General extends Component {
                                     {entry.company}
                                     </div>
                                     <div>
-                                    <button>EDIT</button>
+                                    <button
+                                    data-company={this.state.experience.indexOf(entry)}>EDIT</button>
                                     </div>
                                 </div>
                             })}
