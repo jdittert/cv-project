@@ -8,7 +8,7 @@
     background-color: var(--header-background);
 }
 
-.education form {
+.education form, .experience form {
     border-bottom: 1px solid var(--dark-accent-color);
     padding-bottom: 1rem;
 }
