@@ -29,7 +29,11 @@ class Display extends Component {
                                 return <li key={entry.id}>
                                     <div className='top-level'>
                                         <div className='title'>{entry.school}</div>
-                                        <div className='dates'>{entry.start} - {entry.end}</div>
+                                        {entry.start || entry.end ? 
+                                        <div className='dates'>{entry.start} 
+                                        {entry.start && entry.end ? ' - ' : <span></span>}
+                                        {entry.end}</div> :
+                                        <div></div>}
                                     </div>
                                     <div>{entry.degree}</div>
                                     </li>
@@ -46,7 +50,11 @@ class Display extends Component {
                                 return <li key={entry.id}>
                                     <div className='top-level'>
                                         <div className='title'>{entry.company}</div>
-                                        <div className='dates'>{entry.start} - {entry.end}</div>
+                                        {entry.start || entry.end ? 
+                                        <div className='dates'>{entry.start} 
+                                        {entry.start && entry.end ? ' - ' : <span></span>}
+                                        {entry.end}</div> :
+                                        <div></div>}
                                     </div>
                                     <div>{entry.position}</div>
                                     <div>Tasks: {entry.tasks}</div>

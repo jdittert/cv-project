@@ -121,6 +121,16 @@ class General extends Component {
         });        
     }
 
+    deleteSchool = (e) => {
+        e.preventDefault();
+        const {school} = e.target.dataset;        
+        let schools = [...this.state.education];
+        schools.splice(school, 1);
+        this.setState({
+            education: schools
+        })
+    }
+
     addExperience = (e) => {
         e.preventDefault();
         this.setState({addExperience: true})
@@ -204,6 +214,16 @@ class General extends Component {
         });
     }
 
+    deleteCompany = (e) => {
+        e.preventDefault();
+        const {company} = e.target.dataset; 
+        let companies = [...this.state.experience];
+        companies.splice(company, 1);
+        this.setState({
+            experience: companies
+        });
+    }
+
     render() {
 
         return (
@@ -242,10 +262,14 @@ class General extends Component {
                                     <div key={entry.id}>
                                     {entry.school}
                                     </div>
-                                    <div>
+                                    <div className='submit-button'>
                                     <button
                                     data-school={this.state.education.indexOf(entry)}
                                     onClick={this.editSchool}>EDIT</button>
+                                    <button
+                                    className='cancel'
+                                    data-school={this.state.education.indexOf(entry)}
+                                    onClick={this.deleteSchool}>DELETE</button>
                                     </div>
                                 </div>}
                                 </div>
@@ -275,10 +299,14 @@ class General extends Component {
                                         <div key={entry.id}>
                                         {entry.company}
                                         </div>
-                                        <div>
+                                        <div className='submit-button'>
                                         <button
                                         data-company={this.state.experience.indexOf(entry)}
                                         onClick={this.editCompany}>EDIT</button>
+                                        <button
+                                        className='cancel'
+                                        data-company={this.state.experience.indexOf(entry)}
+                                        onClick={this.deleteCompany}>DELETE</button>
                                         </div>
                                     </div>}
                                 </div>
